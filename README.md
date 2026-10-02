@@ -12,31 +12,31 @@ Almost "Instant" Kodi Addon Repository — auto genereert je persoonlijke Kodi a
 
 - Bash omgeving
 - Git
-- Travis CI account
+- GitHub account met GitHub Actions
 
 ### Installatie
 
 1. Maak een nieuwe GitHub repository aan met de bestanden uit deze repo of fork deze repo
-2. Maak een account aan op [Travis CI](https://travis-ci.org) en voeg je project toe
-3. Clone je repo lokaal:
+2. Clone je repo lokaal:
 
 ```bash
 git clone git@github.com:YOUR_USER_NAME/YOUR_REPO_NAME.git my_kodi_repo
 cd my_kodi_repo
 ```
 
-4. Genereer een GitHub deploy key:
+3. Genereer een GitHub deploy key:
 
 ```bash
 ssh-keygen -q -t rsa -b 4096 -C 'put-your-repo-name-here' -f deploy_key -N ''
 ```
 
-5. Voeg `deploy_key.pub` toe als Deploy key in je repo instellingen (met write access)
-6. Installeer de [Travis CLI](https://github.com/travis-ci/travis.rb#installation) en login:
+4. Voeg `deploy_key.pub` toe als Deploy key in je repo instellingen (met write access)
+5. Voeg de private key toe als GitHub Actions secret met de naam `DEPLOY_KEY`
+6. Pas de workflow aan in `.github/workflows/` naar wens
 
-```bash
-travis login
-```
+### GitHub Actions
+
+De repo gebruikt GitHub Actions om automatisch de Kodi addon repository te bouwen en te publiceren. Zie `.github/workflows/` voor de workflow-definities.
 
 7. Versleutel je deploy key:
 
