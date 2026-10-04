@@ -1,9 +1,16 @@
 import argparse
+import logging
 import os
 import sys
 import json
 from shutil import copyfile
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+logger = logging.getLogger(__name__)
 
 DIR_INFO_TEMPLATE = '''
         <dir minversion="{minversion}">
@@ -38,19 +45,19 @@ def main():
     args = parser.parse_args()
 
     if not os.path.isdir(args.repo_addon_folder):
-        print('Invalid repo_addon_folder: {}'.format(args.repo_addon_folder))
+        logger.error('Invalid repo_addon_folder: %s', args.repo_addon_folder)
         sys.exit(1)
 
     if not os.path.isfile(args.template):
-        print('Invalid template: {}'.format(args.template))
+        logger.error('Invalid template: %s', args.template)
         sys.exit(1)
 
     if not os.path.isfile(args.icon):
-        print('Invalid icon: {}'.format(args.icon))
+        logger.error('Invalid icon: %s', args.icon)
         sys.exit(1)
 
     if not os.path.isfile(args.config):
-        print('Invalid config: {}'.format(args.config))
+        logger.error('Invalid config: %s', args.config)
         sys.exit(1)
 
     repo_addon_name = 'repository.{}.{}'.format(
@@ -59,7 +66,7 @@ def main():
     )
     repo_addon_src = os.path.join(args.repo_addon_folder, repo_addon_name)
     if os.path.isdir(repo_addon_src):
-        print('The repo addon folder already exists: {}'.format(repo_addon_src))
+        logger.error('The repo addon folder already exists: %s', repo_addon_src)
         sys.exit(1)
 
     os.mkdir(repo_addon_src)
@@ -100,7 +107,7 @@ def main():
             fanart_file='resources/fanart.jpg' if fanart_file else '',
         ))
 
-    print('Generated {}'.format(output_file))
+    logger.info('Generated %s', output_file)
 
 
 if __name__ == "__main__":

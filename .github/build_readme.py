@@ -1,9 +1,17 @@
 import argparse
+import logging
 import os
 import sys
 import json
 import xml.etree.ElementTree
 from collections import namedtuple
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+logger = logging.getLogger(__name__)
 
 
 Addon = namedtuple('Addon', ['id', 'name', 'version', 'zip'])
@@ -31,15 +39,15 @@ def main():
     args = parser.parse_args()
 
     if not os.path.isfile(args.config):
-        print('Invalid config path: {}'.format(args.config))
+        logger.error('Invalid config path: %s', args.config)
         sys.exit(1)
 
     if not os.path.isfile(args.template):
-        print('Invalid template: {}'.format(args.template))
+        logger.error('Invalid template: %s', args.template)
         sys.exit(1)
 
     if not os.path.isdir(args.build):
-        print('Invalid build path: {}'.format(args.build))
+        logger.error('Invalid build path: %s', args.build)
         sys.exit(1)
 
     with open(args.config, 'r') as config_file, \

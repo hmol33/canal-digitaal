@@ -62,7 +62,9 @@ GPL-3.0 — zie [LICENSE](LICENSE) voor details.
 - Auto genereert een repository addon zip voor je nieuwe persoonlijke repository
 - GitHub Actions CI/CD pipeline
 - Python 3 compatibel
-- Structured logging
+- Structured logging met timestamps
+- Error handling met duidelijke foutmeldingen
+- Input validatie voor alle build scripts
 
 ## Demo
 
