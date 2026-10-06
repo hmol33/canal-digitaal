@@ -10,7 +10,7 @@ if [ "$TRAVIS_PULL_REQUEST" != 'false' ]; then
 fi
 
 CWD=$(pwd)
-SOURCE_BRANCH="master"
+# SOURCE_BRANCH="master"  # unused, kept for reference
 TARGET_BRANCH="gh-pages"
 
 BUILD_DIR="$HOME/.build"
@@ -31,7 +31,7 @@ git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 
 cd $CWD
 # Clean out existing contents
-rm -rf $BUILD_DIR/* || exit 1
+rm -rf "${BUILD_DIR:?}"/* || exit 1
 rm -rf $BUILD_DIR/.github $BUILD_DIR/.travis.yml $BUILD_DIR/.gitignore || exit 1
 
 # Download create_repository.py
@@ -51,8 +51,8 @@ chmod +x "$jq_path"
 # - Generate a repo set of addons.xml, addons.xml.md5 etc for each branch
 for b in $(cat .github/config.json | .github/jq -c .branchmap[]); do
     name=$(echo "$b" | .github/jq -r '.name')
-    minversion=$(echo "$b" | .github/jq -r '.minversion')
-    mkdir -p "$SOURCES_DIR/$name" "$SOURCES_DIR/$datadir"
+    # minversion=$(echo "$b" | .github/jq -r '.minversion')  # unused
+    mkdir -p "$SOURCES_DIR/$name" "$SOURCES_DIR/$DATADIR"
 
     git clone --quiet --depth 1 "$REPO" -b "$name" "$SOURCES_DIR/$name"
 
@@ -95,7 +95,7 @@ ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
 ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
 ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
 
-eval `ssh-agent -s`
+eval "$(ssh-agent -s)"
 # Use stdin/stdout instead of key writing to disk
 openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in "$CWD/.github/deploy_key.enc" -d | ssh-add -
 
