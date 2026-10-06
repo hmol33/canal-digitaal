@@ -7,19 +7,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  python-syntax:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          node-version: '20'
-      - name: Install dependencies
-        run: npm install
-      - name: Lint
-        run: npm run lint --if-present
-      - name: Build
-        run: npm run build --if-present
-      - name: Test
-        run: npm test --if-present
+          python-version: '3.x'
+      - name: Check Python syntax
+        run: |
+          find .github -name '*.py' -exec python3 -m py_compile {} \;
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run shellcheck on all .sh files
+        run: |
+          set -e
+          sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+          found=0
+          while IFS= read -r f; do
+            found=1
+            echo "=== $f ==="
+            shellcheck -S warning "$f"
+          done < <(find . -name '*.sh' -not -path './.git/*')
+          [ "$found" = "1" ] || echo "No shell scripts found."
