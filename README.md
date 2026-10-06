@@ -1,82 +1,68 @@
-# canal-digitaal
+# Canal Digitaal Kodi Addon
 
-<img src="https://img.shields.io/github/stars/hmol33/canal-digitaal?style=flat-square&color=blue" alt="Stars">
-<img src="https://img.shields.io/github/forks/hmol33/canal-digitaal?style=flat-square&color=green" alt="Forks">
-<img src="https://img.shields.io/github/license/hmol33/canal-digitaal?style=flat-square" alt="License">
+[![CI](https://github.com/hmol33/canal-digitaal/actions/workflows/ci.yml/badge.svg)](https://github.com/hmol33/canal-digitaal/actions/workflows/ci.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Kodi](https://img.shields.io/badge/Kodi-19+-blue.svg)](https://kodi.tv)
 
-Almost "Instant" Kodi Addon Repository — auto genereert je persoonlijke Kodi addon repository gehost op GitHub.
+Kodi addon voor het bekijken van Canal Digitaal IPTV (Nederland). Ondersteunt Live TV, Replay TV, en VOD.
+
+## Features
+
+- **Live TV** - Bekijk live zenders van Canal Digitaal
+- **Replay TV** - Bekijk programma's uit het verleden (tot 7 dagen)
+- **VOD** - Video on demand content (series en films)
+- **Zoeken** - Doorzoek alle content met fuzzy matching
+- **Kanaalkeuze** - Kies welke zenders je wilt zien
+- **EPG** - Electronic program guide ondersteuning
+- **PVR** - Integratie met Kodi PVR IPTV Simple Client
+
+## Vereisten
+
+- Kodi 19.0 (Matrix) of hoger
+- Canal Digitaal abonnement
+- Widevine DRM ondersteuning (voor beveiligde streams)
 
 ## Installatie
 
-### Vereisten
+### Via Repository
 
-- Bash omgeving
-- Git
-- Travis CI account
+1. Download de [repository.anon.iptv](https://github.com/hmol33/canal-digitaal/releases) zip
+2. In Kodi: **Add-ons** → **Install from zip file**
+3. Navigeer naar de gedownloade zip en installeer
+4. Ga naar **Install from repository** → **Dutch IPTV Repository** → **Video add-ons** → **Canal Digitaal IPTV**
 
-### Installatie
-
-1. Maak een nieuwe GitHub repository aan met de bestanden uit deze repo of fork deze repo
-2. Maak een account aan op [Travis CI](https://travis-ci.org) en voeg je project toe
-3. Clone je repo lokaal:
+### Vanuit broncode
 
 ```bash
-git clone git@github.com:YOUR_USER_NAME/YOUR_REPO_NAME.git my_kodi_repo
-cd my_kodi_repo
+git clone https://github.com/hmol33/canal-digitaal.git
+cd canal-digitaal
+# Kopieer de plugin.video.canaldigitaal map naar je Kodi addons directory
 ```
 
-4. Genereer een GitHub deploy key:
+## Configuratie
 
-```bash
-ssh-keygen -q -t rsa -b 4096 -C 'put-your-repo-name-here' -f deploy_key -N ''
-```
+1. Open de addon in Kodi
+2. Ga naar **Instellingen**
+3. Voer je Canal Digitaal inloggegevens in
+4. Optioneel: configureer proxy, EPG, en kanaalkeuze
 
-5. Voeg `deploy_key.pub` toe als Deploy key in je repo instellingen (met write access)
-6. Installeer de [Travis CLI](https://github.com/travis-ci/travis.rb#installation) en login:
+## Bijdragen
 
-```bash
-travis login
-```
+Zie [CONTRIBUTING.md](CONTRIBUTING.md) voor richtlijnen.
 
-7. Versleutel je deploy key:
+## Beveiliging
 
-```bash
-travis encrypt-file deploy_key .github/deploy_key.enc
-```
+Zie [SECURITY.md](SECURITY.md) voor het beveiligingsbeleid en het rapporteren van kwetsbaarheden.
 
-8. Voeg je addon source code toe in de `src/` folder
-9. Commit en push:
+## Licentie
 
-```bash
-git add -A .
-git push
-```
+Dit project is gelicenseerd onder de GNU General Public License v3.0 - zie [LICENSE](LICENSE) voor details.
 
-## Gebruik
+## Disclaimer
 
-Na installatie wordt je persoonlijke Kodi addon repository automatisch gegenereerd op:
-
-```
-https://your_user_name.github.io/your_repo_name/
-```
-
-De repository wordt automatisch bijgewerkt elke keer dat je je addon code update.
+Dit project is niet gelieerd aan of ondersteund door Canal Digitaal. Het is een onafhankelijk project gemaakt door de community.
 
 ## Bijdragers
 
 - [hmol33](https://github.com/hmol33) — Onderhouder
 - [ping](https://github.com/ping) — Original instant-kodi-repo creator
-
-## Licentie
-
-GPL-3.0 — zie [LICENSE](LICENSE) voor details.
-
-## Features
-
-- Auto genereert je persoonlijke Kodi addon repository gehost op GitHub
-- Auto updates elke keer dat je je addon code update
-- Auto genereert een repository addon zip voor je nieuwe persoonlijke repository
-
-## Demo
-
-[Demo](https://ping.github.io/instant-kodi-repo/)
